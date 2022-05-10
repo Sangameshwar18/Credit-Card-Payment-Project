@@ -1,0 +1,29 @@
+
+version: '3.9'
+services:
+  api:
+    build:
+      context: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=scott
+      - SPRING_DATASOURCE_PASSWORD=tiger
+  db:
+    image: postgres
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=tiger
+      - POSTGRES_USER=scott
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pavan"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+volumes:
+  db_data: {}
