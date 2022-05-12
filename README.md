@@ -10,7 +10,7 @@
   sudo yum install docker -y
   sudo systemctl start docker
 
-  # Give ec2-user permission for docker
+  #Give ec2-user permission for docker
   sudo usermod -a -G docker ec2-user
 
   sudo systemctl enable docker
@@ -28,7 +28,7 @@
 
   sudo vi Dockerfile
 
-  #Dockerfile
+  # Dockerfile
 
     From openjdk:8
 
@@ -112,7 +112,7 @@ services:
 
     db_data: {}
  
-# run docker compose 
+#run docker compose 
 
   docker-compose up -d
 
@@ -134,7 +134,7 @@ In chrome this url:
 
   \dt (now we got all relations like account, statement etc)
   
-#Deploying project in kubernets
+# Deploying project in kubernets
   
   1. create one EC2 instance, t2.medium, 30GB, allport, Launch
 
