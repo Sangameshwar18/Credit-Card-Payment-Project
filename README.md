@@ -6,15 +6,16 @@
 
 2. Install Docker
 
-  sudo yum update -y
-  sudo yum install docker -y
-  sudo systemctl start docker
+        sudo yum update -y
+        sudo yum install docker -y
+        sudo systemctl start docker
 
-  #Give ec2-user permission for docker
-  sudo usermod -a -G docker ec2-user
+        #Give ec2-user permission for docker
+  
+              sudo usermod -a -G docker ec2-user
 
-  sudo systemctl enable docker
-  sudo systemctl status docker
+        sudo systemctl enable docker
+        sudo systemctl status docker
 
 3. Install git
 
