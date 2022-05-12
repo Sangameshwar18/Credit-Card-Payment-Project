@@ -43,97 +43,43 @@
 
         sudo docker build -t app .
 
-5. Install docker-compose wget https://github.com/docker/compose/releases/download/v2.5.0/docker-compose-linux-x86_64
+5. Install docker-compose 
+                
+        wget https://github.com/docker/compose/releases/download/v2.5.0/docker-compose-linux-x86_64
 
-  ls -lrt
+        ls -lrt
 
-  sudo chmod +x docker-compose-linux-x86_64
+        sudo chmod +x docker-compose-linux-x86_64
 
-  sudo mv docker-compose-linux-x86_64 docker-compose
+        sudo mv docker-compose-linux-x86_64 docker-compose
 
-  sudo mv docker-compose /usr/local/bin/docker-compose
+        sudo mv docker-compose /usr/local/bin/docker-compose
 
-  docker compose --version
+        docker compose --version
 
-6. vi docker-compose.yml
-
-version: '3.9'
-
-services:
-
-  api:
-
-    build:
-
-      context: .
-
-  ports:
-
-    - "8080:8086"
-
-  depends_on:
-
-    db:
-
-      condition: service_healthy
-
-  environment:
-
-    - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres
-
-    - SPRING_DATASOURCE_USERNAME=scott
-
-    - SPRING_DATASOURCE_PASSWORD=Password
-
-  db:
-
-    image: postgres
-
-    volumes:
-
-      - db_data:/var/lib/postgresql/data
-
-    environment:
-
-      - POSTGRES_PASSWORD=Password
-
-      - POSTGRES_USER=scott
-
-    healthcheck:
-
-      test: ["CMD-SHELL", "pg_isready -U scott"]
-
-      interval: 10s
-
-      timeout: 5s
-
-      retries: 5
-
-  volumes:
-
-    db_data: {}
+6. Bulid docker-compose.yml file
  
-#run docker compose 
+        #run docker compose 
 
-  docker-compose up -d
+        docker-compose up -d
 
-  docker-compose ps
+        docker-compose ps
 
-In chrome this url:
+        In chrome use this url:
 
-<Ec2Ip Address>:8080/swagger-ui.html
+        <Ec2Ip Address>:8080/swagger-ui.html
 
 7. Go inside container to check the database
 
-  docker container exec -it <contIdOfPostgres> bash
+        docker container exec -it <contIdOfPostgres> bash
 
-  psql -h localhost -p 5432 -U scott -W
+        psql -h localhost -p 5432 -U scott -W
 
-  password: Password
+        password: Password
 
-  \c postgres (to connect to postgres database)
+        \c postgres (to connect to postgres database)
 
-  \dt (now we got all relations like account, statement etc)
+        \dt (now we got all relations like account, statement etc)
   
 # Deploying project in kubernets
   
@@ -143,15 +89,15 @@ In chrome this url:
 
   3. Install docker
   
-  sudo yum update -y
-  sudo yum install docker -y
-  sudo systemctl start docker
+         sudo yum update -y
+         sudo yum install docker -y
+         sudo systemctl start docker
   
-  #Give ec2-user permission for docker
-  sudo usermod -a -G docker ec2-user
+         #Give ec2-user permission for docker
+                sudo usermod -a -G docker ec2-user
   
-  sudo systemctl enable docker
-  sudo systemctl status docker
+         sudo systemctl enable docker
+         sudo systemctl status docker
 
   4. Install kubectl
   
@@ -168,6 +114,7 @@ In chrome this url:
 
 
   5. Download Minikube
+
     curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
   
     sudo install minikube-linux-amd64 /usr/local/bin/minikube
@@ -177,13 +124,15 @@ In chrome this url:
     minikube start  --vm-driver=none
   
   6. Install git and clone repository
-     yum install git -y
+     
+    yum install git -y
 
     git clone <copy the link from github under code>
 
     Go inside project directory
 
   7. Deploy all configurations
+    
     cd config
 
     kubectl apply -f db_deploy.yml
@@ -207,19 +156,19 @@ In chrome this url:
     copy the port of myapp i.e., 30005 (8080:30005/TCP)
     
     # In the chrome use this url
-    <IpofEc2Instance>:<myAppPort>/swagger-ui.html
+        <IpofEc2Instance>:<myAppPort>/swagger-ui.html
  
  8. To check the database
       
-    kubectl get all
+        kubectl get all
 
-    Copy the name of the pod -> Eg: creditcarddb-6db985574f-x6tfj 
+        Copy the name of the pod -> Eg: creditcarddb-6db985574f-x6tfj 
 
-    kubectl exec -it <Paste the name of Pod>
+        kubectl exec -it <Paste the name of Pod>
 
-    psql -U <user_name> -d <databaseName>
+        psql -U <user_name> -d <databaseName>
 
-    psql -U scott -d postgres
+        psql -U scott -d postgres
 
-    \dt;
+        \dt;
 
