@@ -135,9 +135,9 @@
     
     cd config
 
-    kubectl apply -f db_deploy.yml
+    kubectl apply -f db_deployment.yml
 
-    kubectl apply -f db_service.yml
+    kubectl apply -f service_db.yml
 
     kubectl get svc
 
@@ -147,9 +147,9 @@
 
     paste in databasesource url before :5432.
   
-    kubectl apply -f app_deploy.yml
+    kubectl apply -f app_deployment.yml
   
-    kubectl apply -f app_service.yml
+    kubectl apply -f service_app.yml
 
     kubectl get all
 
