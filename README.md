@@ -19,29 +19,29 @@
 
 3. Install git
 
-  sudo yum install git 
+        sudo yum install git 
 
-  git clone https://github.com/Padma-U/CreditCardBillPaymentApp.git
+        git clone https://github.com/Padma-U/CreditCardBillPaymentApp.git
 
 4. Build an Image for our project
 
-  cd <project_name>
+        cd <project_name>
 
-  sudo vi Dockerfile
+        sudo vi Dockerfile
 
-  # Dockerfile
+        # Dockerfile
 
-    From openjdk:8
+                From openjdk:8
 
-    WORKDIR /app
+                WORKDIR /app
 
-    ADD build/libs/CreditCardPayment-0.0.1-SNAPSHOT.jar .
+                ADD build/libs/CreditCardPayment-0.0.1-SNAPSHOT.jar .
 
-    EXPOSE 8086
+                EXPOSE 8086
 
-    ENTRYPOINT ["java","-jar","CreditCardPayment-0.0.1-SNAPSHOT.jar"]
+                ENTRYPOINT ["java","-jar","CreditCardPayment-0.0.1-SNAPSHOT.jar"]
 
-  sudo docker build -t app .
+        sudo docker build -t app .
 
 5. Install docker-compose wget https://github.com/docker/compose/releases/download/v2.5.0/docker-compose-linux-x86_64
 
